@@ -9,6 +9,7 @@
     <div class="container">
         <!-- tela para digitar o pedido -->
         <form action="cadastrar_pedido.php" method="POST">
+            <br>
             <h2>Escolha de Itens do Pedido</h2>
             <br>
         <div class="form-group">
@@ -28,6 +29,12 @@
         <input type="text" class="form-control" id="preco_produto" name="preco_produto" placeholder="">
         </div>
         <button type="submit" class="btn btn-primary">Adicionar item</button>
+        <?php if(isset($resultado)): ?>
+            <div class="alert <?=$resultado["style"]?> ">
+            <?php echo $resultado["msg"]; ?>
+        </div>   
+        <?php endif; ?>     
+        </form> 
     </div>
 </body>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
