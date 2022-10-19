@@ -10,11 +10,11 @@ if(count($_POST)> 0){
 
 $servername = "localhost";
 $username = "root";
-$password = "Vacapreta123!@#";
+$password = "123456789";
 
     try{
         
-    require_once("./config/connection.php");
+    require_once("connection.php");
     
     $sql = "INSERT INTO item_pedido (IdUsuario, nome_produto, observacao, preco_und, quantidade) VALUES (?,?,?,?,?)";
     $stmt= $conn->prepare($sql);
