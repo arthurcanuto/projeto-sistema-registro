@@ -1,38 +1,29 @@
 <?php
+require_once("./config/connection.php");
 
-    // 1. Pegar valores do formulario
-    $email = $_POST['email'];
-    $senha = $_POST['senha'];
+if(!empty($_POST['email']) and !empty($_POST['senha'])){
 
-    // 2. Conexao com banco de dados
-    
-$servername = "localhost";
-$username = "root";
-$password = "Vacapreta123!@#";
+  // 1. Pegar valores do formulario
+  $email = $_POST['email'];
+  $senha = $_POST['senha'];
 
-try {
-  $conn = new PDO("mysql:host=$servername;dbname=Loja", $username, $password);
-  // set the PDO error mode to exception
-  $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-  echo "Conexão realizada com sucesso";
-}  catch(PDOException $e) {
-    echo "Conexão falhou: " . $e->getMessage();
-  }
-// Conexao realizada com sucesso
-$stmt = $conn->prepare('SELECT IdUsuario FROM usuario where email=:email AND senha=md5(:senha)');
-$stmt->bindParam(':email', $email, PDO::PARAM_STR);
-$stmt->bindParam(':senha', $senha, PDO::PARAM_STR);
-  $stmt->execute();
+  // Conexao realizada com sucesso
+  $consulta = $conn->prepare('SELECT IdUsuario FROM usuario where email=:email AND senha=md5(:senha)');
+  $consulta->bindParam(':email', $email, PDO::PARAM_STR);
+  $consulta->bindParam(':senha', $senha, PDO::PARAM_STR);
+  $consulta->execute();
   // set the resulting array to associative
-  $result = $stmt->fetchAll();
+  $result = $consulta->fetchAll();
   $qnt_usuarios = count($result);
-    if($qnt_usuarios == 1){
-        echo "Usuário Encontrado!";
-    } else if($qnt_usuarios == 0){
-        echo "Usuário NÃO Encontrado!";
-    }
-   
+  if($qnt_usuarios == 1){
+    // TODO substituir pelo redirecionamento
+      $resultado["msg"] = "Usuário encontrado!";
+      $resultado["cod"] = "Usuário não encontrado!";
+  } else if($qnt_usuarios == 0){
+      $resultado["msg"] = "E-mail ou senha não conferem...";
+      $resultado["cod"] = 0;
+  }
+}
   $conn = null;
+  include("index.php");
 // 3. Verificar se email e senha estão no BD
-
-?>
