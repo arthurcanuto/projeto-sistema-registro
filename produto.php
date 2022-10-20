@@ -34,12 +34,17 @@
             <textarea class="form-control" name="info_produto" id="info_produto" rows="4" cols="50"></textarea>
             </div>
             <button type="submit" class="btn btn-primary">Adicionar item</button>
+            </br></br>
         <?php if(isset($resultado)): ?>
             <div class="alert <?=$resultado["style"]?> ">
             <?php echo $resultado["msg"]; ?>
             <?php endif; ?>
         </div>  
         </form>
+        <br/>
+        <?php include("selecionar_produtos.php"); ?>
+        <?php if(count($produtos) > 0): ?>
+        <h4>Produtos Cadastrados</h4>
         <table class="table">
             <thead>
                 <tr>
@@ -49,19 +54,27 @@
                     <th>Categoria</th>
                     <th>Valor</th>
                     <th>Informação Adicional</th> 
-                    <th>Data Hora</th>                   
+                    <th>Data Hora</th>
+                    <th></th>                   
                 </tr>
+                <?php foreach($produtos as $p): ?>
                 <tr>
-                    <td>001</td>
-                    <td>Capa</td>
-                    <td>Arthur</td>
-                    <td>Comida</td>
-                    <td>R$25,00</td>
-                    <td>Caprichado</td>
-                    <td>dsa</td>
+                    <td><?= $p["IdProduto"]; ?></td>
+                    <td><?= $p["foto"]; ?></td>
+                    <td><?= $p["nome"]; ?></td>
+                    <td><?= $p["categoria"]; ?></td>
+                    <td><?= $p["valor"]; ?></td>
+                    <td><?= $p["info_adicional"]; ?></td>
+                    <td><?= $p["data_hora"]; ?></td>
+                    <td>
+                        <a class="btn btn-outline-warning btn-sm" href="produto_form_alterar.php?IdProduto=<?=$p['IdProduto']?>">Alterar</a>
+                        <a class="btn btn-outline-danger btn-sm" onclick="confirm('Remover <?=$p['nome'];?>?');" href="remover_produtos.php?IdProduto=<?=$p['IdProduto']?>">Remover</a>
+                    </td>     
                 </tr>
+                <?php endforeach; ?>
             </thead>
         </table>
+        <?php endif; ?>
     </div>
         </br></br></br></br></br></br>
 </body>
