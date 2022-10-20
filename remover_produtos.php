@@ -1,12 +1,12 @@
 <?php
 
 if(count($_GET)> 0){
-    $cod_produto= $_GET["IdCodigo"];
+    $cod_produto= $_GET["IdProduto"];
 
     try{        
         require("connection.php");
         
-    $sql = "UPDATE produto SET situacao = 'Desabilitado' WHERE IdCodigo = ?";
+    $sql = "UPDATE produto SET situacao = 'Desabilitado' WHERE IdProduto = ?";
     $stmt= $conn->prepare($sql);
     // To do pegar o codigo do usuario logado
     $stmt->execute([$cod_produto]); 
