@@ -10,7 +10,7 @@ if(count($_POST)> 0){
 
 $servername = "localhost";
 $username = "root";
-$password = "123456789";
+$password = "Vacapreta@123";
 
     try{
         
@@ -30,7 +30,7 @@ $password = "123456789";
         
     $resultado["msg"] = "Inserção no banco de dados falhou" . $e->getMessage();
     $resultado["cod"] = 0;
-    $resultado["style"] = "alert-success";
+    $resultado["style"] = "alert-danger";
     }
       
   $conn = null;
