@@ -11,7 +11,7 @@
     <p><h2>Efetuar Login</h2></p>
     <form id="form_login" action="login.php" method="POST">
         <?php if((!empty($resultado)) AND  $resultado["cod"] == 0): ?>
-        <div class="alert alert-danger">
+        <div class="alert alert-success">
             <?php echo $resultado["msg"]; ?>
         </div>      
         <?php endif; ?>          
