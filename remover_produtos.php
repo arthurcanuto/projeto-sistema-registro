@@ -9,7 +9,7 @@ if(count($_GET)> 0){
     $sql = "UPDATE produto SET situacao = 'Desabilitado' WHERE IdProduto = ?";
     $stmt= $conn->prepare($sql);
     // To do pegar o codigo do usuario logado
-    $stmt->execute([$cod_produto]); 
+    $stmt->execute([$cod_produto]);
 
 // TODO substituir pelo redirecionamento
     $resultado["msg"] = "Item removido com sucesso!";
