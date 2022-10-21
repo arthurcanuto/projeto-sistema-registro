@@ -1,19 +1,23 @@
 <?php
+require("connection.php");
 
+// erros na variavel
 if(count($_POST)> 0){
+
     $nome= $_POST["nome_produto"];
     $categoria = $_POST["categoria_produto"];
     $valor = $_POST["preco_produto"];
     $foto = $_POST["foto_produto"];
     $info = $_POST["info_produto"];
+    $codigo = $_SESSION["codigo_usuario"];
     
-    try{        
-        require("connection.php");
+    try{   
         
+    // verificar email e senha no BD   
     $sql = "INSERT INTO produto (nome, categoria, valor, foto, info_adicional, codigo_usuario) VALUES (?,?,?,?,?,?)";
     $stmt= $conn->prepare($sql);
     // To do pegar o codigo do usuario logado
-    $stmt->execute([$nome, $categoria, $valor, $foto, $info, null]); 
+    $stmt->execute([$nome, $categoria, $valor, $foto, $info, $codigo]); 
 
 // TODO substituir pelo redirecionamento
     $resultado["msg"] = "Item inserido com sucesso!";
