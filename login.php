@@ -1,41 +1,32 @@
-<?php
+<!DOCTYPE html>
+<?php session_start(); ?>
 
-require_once("connection.php");
-
-if(!empty($_POST['email']) and !empty($_POST['senha'])){
-
-  // 1. Pegar valores do formulario
-  $email = $_POST['email'];
-  $senha = $_POST['senha'];
-
-  // Conexao realizada com sucesso
-  $consulta = $conn->prepare("SELECT * FROM usuario where situacao='Habilitado' AND email=:email AND senha=md5(:senha)");
-  $consulta->bindParam(':email', $email, PDO::PARAM_STR);
-  $consulta->bindParam(':senha', $senha, PDO::PARAM_STR);
-  $consulta->execute();
-  // set the resulting array to associative
-  $r = $consulta->fetchAll();
-  // echo "<prev>";
-  // print_r($r);
-  // echo "</prev>";
-  // exit;
-  $qnt_usuarios = count($r);
-  if($qnt_usuarios == 1){
-    // TODO substituir pelo redirecionamento
-
-   $_SESSION["email_usuario"] = $email;
-   $_SESSION["nome_usuario"] = $r[0]['Nome'];
-   $_SESSION["codigo_usuario"] = $r[0]['IdUsuario'];
-   header('location:pedido.php');
-  // echo "<prev>";
-  // print_r($_SESSION);
-  // echo "</prev>";
-  // exit;
-  } else if($qnt_usuarios == 0){
-      $resultado["msg"] = "E-mail ou senha não conferem...";
-      $resultado["cod"] = 0;
-  }
-}
-  $conn = null;
-  include("index.php");
-// 3. Verificar se email e senha estão no BD
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content=""width=device-width, initial-scale="1.0">
+    <title> Registro de Pedidos 1.0</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+    <p><h2>Efetuar Login</h2></p>
+    <form id="form_login" action="login.php" method="POST">
+        <?php if((isset ($resultado)) AND  $resultado["cod"] == 0): ?>
+        <div class="alert alert-danger">
+            <?php echo $resultado["msg"]; ?>
+        </div>      
+        <?php endif; ?>          
+        <INPUT TYPE="email" id="email" name="email" placeholder="Digite seu E-mail">
+        <br>
+        <br>
+        <INPUT TYPE="password" id="senha" name="senha" placeholder="Digite sua Senha">
+        <br>
+        <br>
+        <INPUT type="submit" id="submeter" value="Entrar" class="btn btn-primary"/>
+    </form>
+</body>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</html>
