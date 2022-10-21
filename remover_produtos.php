@@ -23,13 +23,13 @@ if(count($_GET)> 0){
     $resultado["cod"] = 0;
     $resultado["style"] = "alert-danger";
     } 
-try{
+    try{
     // pegar os produtos armazenados no BD
     $consulta = $conn->prepare("SELECT * FROM produto");
     $consulta->execute();
     // set the resulting array to associative
     $produtos = $consulta->fetchAll(); 
-}catch(PDOException $e) {        
+    }catch(PDOException $e) {        
     $resultado["msg"] = "Erro ao inserir produto no banco de dados falhou" . $e->getMessage();
     $resultado["cod"] = 0;
     $resultado["style"] = "alert-danger";
