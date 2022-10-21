@@ -1,5 +1,7 @@
 <?php
 
+if(empty($_SESSION)){session_start();}
+
 // 2. Conexao com banco de dados
 $servername = "localhost";
 $username = "root";
